@@ -7,6 +7,7 @@ export default function createAlertsRoute(alertsCtrl) {
   router.get("/:id", alertsCtrl.getById);
   router.post("/", alertsCtrl.create);
   router.put("/:id", alertsCtrl.update);
+  router.delete("/:id", alertsCtrl.remove);
 
   return router;
 }
