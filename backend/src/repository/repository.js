@@ -12,7 +12,7 @@ export default function repository(supabase) {
   }
 
   async function update(id, data) {
-    return await supabase.update(data).eq("id", id);
+    return await supabase.update(data).eq("id", id).select("*");
   }
 
   async function remove(id) {
