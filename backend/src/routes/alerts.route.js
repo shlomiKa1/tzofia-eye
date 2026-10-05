@@ -5,6 +5,7 @@ export default function createAlertsRoute(alertsCtrl) {
 
   router.get("/", alertsCtrl.getAll);
   router.get("/:id", alertsCtrl.getById);
-  
+  router.post("/", alertsCtrl.create);
+
   return router;
 }
