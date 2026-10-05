@@ -43,5 +43,21 @@ export default function createAlertsCtrl(alertsRepo) {
       .send({ success: true, data: "Alert added successfully" });
   }
 
-  return { getAll, getById, create };
+  async function update(req, res) {
+    const parsed = updateAlert.safeParse(req.body);
+
+    if (!parsed.success) {
+      throw new AppError(400, parsed.error.issues[0].path);
+    }
+
+    const { data, error, status } = await alertsRepo.update(
+      req.params.id,
+      parsed.data,
+    );
+    if (error) throw new AppError(status, error.message);
+
+    return res.send({ success: true, data });
+  }
+
+  return { getAll, getById, create, update };
 }
