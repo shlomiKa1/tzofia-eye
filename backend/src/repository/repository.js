@@ -8,7 +8,7 @@ export default function repository(supabase) {
   }
 
   async function create(data) {
-    return await supabase.insert(data).select();
+    return await supabase.insert(data).select("*");
   }
 
   async function update(id, data) {
@@ -19,5 +19,10 @@ export default function repository(supabase) {
     return await supabase.delete().eq("id", id).select("*");
   }
 
-  return { getAll, getById, create, update, remove };
+  async function generateId() {
+    const data = await getAll();
+    return data.length > 0 ? Math.max(...data.map((d) => d.id)) + 1 : 1;
+  }
+
+  return { getAll, getById, create, update, remove, generateId };
 }
