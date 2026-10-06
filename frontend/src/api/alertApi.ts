@@ -1,21 +1,29 @@
 import type { Alert } from "../types/alert";
-import { clientRequest } from "./client";
+import { api } from "./client";
 
 export const alertApi = {
-  getAll: async () =>
-    await clientRequest<Alert[]>("/alerts", {
-      method: "get",
-    }),
+  async getAll() {
+    const res = await api.get(`/alerts`);
+    return res.data.data as Alert[];
+  },
 
-  getById: async (id: number) =>
-    await clientRequest<Alert>(`/alerts/${id}`, { method: "get" }),
+  async getById(id: number) {
+    const res = await api.get(`/alerts/${id}`);
+    return res.data.data as Alert;
+  },
 
-  create: async (data: Alert) =>
-    clientRequest<Alert>(`/alerts`, { method: "post", data }),
+  async create(data: Alert) {
+    const res = await api.post(`/alerts`, data);
+    return res.data.data as Alert;
+  },
 
-  update: async (id: number, data: Alert) =>
-    await clientRequest<Alert>(`/alerts/${id}`, { method: "put", data }),
+  async update(id: number, data: Partial<Alert>) {
+    const res = await api.put(`/alerts/${id}`, data);
+    return res.data.data as Alert;
+  },
 
-  remove: async (id: number) =>
-    await clientRequest<Alert>(`/alerts/${id}`, { method: "get" }),
+  async remove(id: number) {
+    const res = await api.delete(`/alerts/${id}`);
+    return res.data.data as Alert;
+  },
 };
