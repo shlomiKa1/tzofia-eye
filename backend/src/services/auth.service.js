@@ -43,7 +43,7 @@ export default function createAuthService(usersRepo) {
       throw new AppError(401, "Email or password not correct");
     }
 
-    const payload = { id: user.id, username: user.username, role: user.id };
+    const payload = { id: user.id, username: user.username, role: user.role };
     return generateToken(payload);
   }
 
