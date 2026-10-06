@@ -21,5 +21,6 @@ export function requiredRole(...roles) {
     if (!roles.includes(req.user?.role)) {
       return next(new AppError(403, "You are not allowed"));
     }
+    next();
   };
 }
