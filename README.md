@@ -1,5 +1,22 @@
 # tzofia-eye
 
+## אופן ההרצה
+```bash
+cd backend
+cp .env.example .env
+npm run dev
+```
+
+---
+
+```bash
+cd frontend
+cp .env.example .env
+npm run dev
+```
+
+---
+
 ## Database
 
 כרגע אני לא רואה סיבה לשימוש במבנה נתונים לא רלציוני, כי יש פה ערך יחיד לכל שדה (כאילו לא [] | {}).
