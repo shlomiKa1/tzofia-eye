@@ -86,14 +86,14 @@ const AddAlert = () => {
       <div>
         <input
           type="number"
-          value={lon ?? 0}
+          value={lon ?? ""}
           onChange={(e) => setLon(Number(e.target.value))}
           placeholder="lon"
         />
 
         <input
           type="number"
-          value={Number(lat)}
+          value={lat ?? ""}
           onChange={(e) => setLat(Number(e.target.value))}
           placeholder="lat"
         />
