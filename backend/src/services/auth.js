@@ -31,6 +31,11 @@ export default function createAuthService(usersRepo) {
     const { data } = await usersRepo.getByEmail(email);
 
     const foundedUser = data.length > 0 ? true : false;
+
+    if (!foundedUser) {
+      throw new AppError(401, "Email or password not correct");
+    }
+    
     const user = foundedUser ? data[0] : {};
     const isMatch = user && (await bcrypt.compare(password, user.password));
 
