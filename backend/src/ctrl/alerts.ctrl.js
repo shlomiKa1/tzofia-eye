@@ -33,16 +33,17 @@ export default function createAlertsCtrl(alertsRepo) {
       throw new AppError(400, parsed.error.issues[0].message);
     }
 
-    const data = { ...parsed.data, status: "Active" };
-    const { error, status } = await alertsRepo.create(data);
+    const alerts = (await alertsRepo.getAll()).data;
+    const id = alerts.length > 0 ? Math.max(...alerts.map((a) => a.id)) + 1 : 1;
+
+    const alert = { id, ...parsed.data, status: "Active" };
+    const { data, error, status } = await alertsRepo.create(alert);
 
     if (error) {
       throw new AppError(status, error.message);
     }
 
-    return res
-      .status(201)
-      .send({ success: true, data: "Alert added successfully" });
+    return res.status(201).send({ success: true, data });
   }
 
   async function update(req, res) {
@@ -63,14 +64,15 @@ export default function createAlertsCtrl(alertsRepo) {
   }
 
   async function remove(req, res) {
-    const { error, status } = await alertsRepo.remove(req.params.id);
+    const id = req.params.id;
+    const { data, error } = await alertsRepo.remove(id);
     if (error) {
       throw new AppError(400, error.message);
     }
 
-    if (status !== 204) throw new AppError(404, "Alert not found");
+    if (data.length === 0) throw new AppError(404, "Alert not found");
 
-    return res.send({ success: true, data: "Alert deleted successfully" });
+    return res.send({ success: true, data: data[0] });
   }
 
   return { getAll, getById, create, update, remove };
