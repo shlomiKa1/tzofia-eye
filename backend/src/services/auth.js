@@ -28,7 +28,7 @@ export default function createAuthService(usersRepo) {
   }
 
   async function login({ email, password }) {
-    const { data, error } = await usersRepo.getByEmail(email);
+    const { data } = await usersRepo.getByEmail(email);
 
     const foundedUser = data.length > 0 ? true : false;
     const user = foundedUser ? data[0] : {};
@@ -42,5 +42,14 @@ export default function createAuthService(usersRepo) {
     return generateToken(payload);
   }
 
-  return { register, login };
+  async function me({ id }) {
+    const { data } = await usersRepo.getById(id);
+    if (data.lenght === 0) {
+      throw new AppError(401, "User not found");
+    }
+
+    const { password, ...user } = data;
+    return user;
+  }
+  return { register, login, me };
 }
