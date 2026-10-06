@@ -1,7 +1,7 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import MapPage from "./pages/MapPage";
 import LoginPage from "./pages/LoginPage";
-import GuestRoute from "./routes/GuestRoute";
+// import GuestRoute from "./routes/GuestRoute";
 import { useAuthStore } from "./store/useAuthStore";
 import Layout from "./Layout";
 import UsersPage from "./pages/UsersPage";

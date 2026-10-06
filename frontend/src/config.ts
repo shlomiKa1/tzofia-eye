@@ -3,3 +3,4 @@ export const SERVER_URL: string =
 
 export const PRIORITY = ["Low", "Medium", "High", "Critical"];
 export const ARENA = ["North", "South", "Center"];
+export const STATUS = ["Active", "Handled"];
