@@ -43,7 +43,7 @@ export default function createAlertsCtrl(alertsRepo) {
       throw new AppError(status, error.message);
     }
 
-    return res.status(201).send({ success: true, data });
+    res.status(201).send({ success: true, data });
   }
 
   async function update(req, res) {
@@ -60,7 +60,7 @@ export default function createAlertsCtrl(alertsRepo) {
 
     if (error) throw new AppError(status, error.message);
 
-    return res.send({ success: true, data });
+    res.send({ success: true, data });
   }
 
   async function remove(req, res) {
@@ -72,7 +72,7 @@ export default function createAlertsCtrl(alertsRepo) {
 
     if (data.length === 0) throw new AppError(404, "Alert not found");
 
-    return res.send({ success: true, data: data[0] });
+    res.send({ success: true, data: data[0] });
   }
 
   return { getAll, getById, create, update, remove };

@@ -6,8 +6,9 @@ import createAlertsRoute from "./routes/alerts.route.js";
 import { VITE_ORIGIN } from "./config.js";
 import { logger } from "./middleware/logger.js";
 import createAuthRoute from "./routes/auth.route.js";
+import createUsersRoute from "./routes/users.route.js";
 
-export function createApp({ alertsCtrl, authCtrl }) {
+export function createApp({ alertsCtrl, authCtrl, usersCtrl }) {
   const app = express();
 
   app.use(express.json());
@@ -18,6 +19,8 @@ export function createApp({ alertsCtrl, authCtrl }) {
 
   app.use("/api/alerts", createAlertsRoute(alertsCtrl));
   app.use("/api/auth", createAuthRoute(authCtrl));
+  app.use("/api/users", createUsersRoute(usersCtrl));
+  
   app.use((_req, res) => {
     res.status(404).send({ success: false, message: "Route not found" });
   });

@@ -2,9 +2,11 @@ import { createApp } from "./app.js";
 import { PORT } from "./config.js";
 import createAlertsCtrl from "./ctrl/alerts.ctrl.js";
 import createAuthCtrl from "./ctrl/auth.ctrl.js";
+import createUsersCtrl from "./ctrl/users.ctrl.js";
 import createAlertsRepo from "./repository/alerts.repository.js";
 import createUsersRepo from "./repository/users.repository.js";
 import createAuthService from "./services/auth.service.js";
+import createUsersService from "./services/users.service.js";
 
 const start = async () => {
   try {
@@ -15,7 +17,10 @@ const start = async () => {
     const authService = createAuthService(usersRepo);
     const authCtrl = createAuthCtrl(authService);
 
-    const app = createApp({ alertsCtrl, authCtrl });
+    const usersService = createUsersService(usersRepo);
+    const usersCtrl = createUsersCtrl(usersService);
+
+    const app = createApp({ alertsCtrl, authCtrl, usersCtrl });
 
     app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
   } catch (err) {
