@@ -17,9 +17,25 @@ export default function createUsersService(usersRepo) {
     if (error) {
       throw new AppError(status, error.message);
     }
+
+    if (data.length === 0) {
+      throw new AppError(404, "User not found");
+    }
     return data;
   }
 
-  
-  return { allUsers, updateUser };
+  async function remove(id) {
+    const { data, error, status } = await usersRepo.remove(id);
+
+    if (error) {
+      throw new AppError(status, error.message);
+    }
+
+    if (data.length === 0) {
+      throw new AppError(404, "User not found");
+    }
+
+    return data;
+  }
+  return { allUsers, updateUser, remove };
 }
