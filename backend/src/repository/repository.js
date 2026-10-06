@@ -20,7 +20,7 @@ export default function repository(supabase) {
   }
 
   async function generateId() {
-    const data = await getAll();
+    const { data } = await getAll();
     return data.length > 0 ? Math.max(...data.map((d) => d.id)) + 1 : 1;
   }
 
