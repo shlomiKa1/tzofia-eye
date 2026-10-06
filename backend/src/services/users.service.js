@@ -11,5 +11,15 @@ export default function createUsersService(usersRepo) {
     return data;
   }
 
-  return { allUsers };
+  async function updateUser(id, newUser) {
+    const { data, error, status } = await usersRepo.update(id, newUser);
+
+    if (error) {
+      throw new AppError(status, error.message);
+    }
+    return data;
+  }
+
+  
+  return { allUsers, updateUser };
 }
