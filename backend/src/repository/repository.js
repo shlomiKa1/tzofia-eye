@@ -8,7 +8,7 @@ export default function repository(supabase) {
   }
 
   async function create(data) {
-    return await supabase.insert(data);
+    return await supabase.insert(data).select();
   }
 
   async function update(id, data) {
@@ -16,7 +16,7 @@ export default function repository(supabase) {
   }
 
   async function remove(id) {
-    return await supabase.delete().eq("id", id);
+    return await supabase.delete().eq("id", id).select("*");
   }
 
   return { getAll, getById, create, update, remove };
