@@ -35,7 +35,7 @@ export default function createAuthService(usersRepo) {
     if (!foundedUser) {
       throw new AppError(401, "Email or password not correct");
     }
-    
+
     const user = foundedUser ? data[0] : {};
     const isMatch = user && (await bcrypt.compare(password, user.password));
 
@@ -47,14 +47,20 @@ export default function createAuthService(usersRepo) {
     return generateToken(payload);
   }
 
-  async function me({ id }) {
-    const { data } = await usersRepo.getById(id);
-    if (data.lenght === 0) {
+  async function me(id) {
+    const { data, error, status } = await usersRepo.getById(id);
+
+    if (error) {
+      throw new AppError(status, error.message);
+    }
+
+    if (data.length === 0) {
       throw new AppError(401, "User not found");
     }
 
-    const { password, ...user } = data;
+    const { password, ...user } = data[0];
     return user;
   }
+
   return { register, login, me };
 }
