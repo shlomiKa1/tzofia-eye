@@ -15,3 +15,11 @@ export function verifyAuth(req, res, next) {
   }
   next();
 }
+
+export function requiredRole(...roles) {
+  return function (req, res, next) {
+    if (!roles.includes(req.user?.role)) {
+      return next(new AppError(403, "You are not allowed"));
+    }
+  };
+}
