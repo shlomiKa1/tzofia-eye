@@ -9,7 +9,7 @@ export const authApi = {
 
   async register(data: Omit<User, "id">) {
     const res = await api.post("/auth/register", data);
-    return res.data.data as User;
+    return res.data.data as string;
   },
 
   async me() {
@@ -18,6 +18,7 @@ export const authApi = {
   },
 
   async logout() {
-    await api.post("/auth/logout");
+    const res = await api.post("/auth/logout");
+    return res.data.data;
   },
 };
