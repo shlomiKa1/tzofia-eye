@@ -1,0 +1,10 @@
+import jwt from "jsonwebtoken";
+import { JWT_SECRET } from "../config";
+
+export function generateToken(payload) {
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: "1d" });
+}
+
+export function verifyToken(token) {
+  return jwt.verify(token, JWT_SECRET);
+}
