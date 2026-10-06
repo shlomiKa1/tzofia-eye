@@ -7,5 +7,10 @@ export default function createAuthCtrl(authService) {
       .send({ success: true, data: "User created successfully" });
   }
 
-  return { register };
+  async function login(req, res) {
+    const token = await authService.login(req.body);
+    res.send({ success: true, data: { token } });
+  }
+
+  return { register, login };
 }
